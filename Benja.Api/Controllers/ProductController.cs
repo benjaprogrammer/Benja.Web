@@ -15,7 +15,7 @@ namespace Benja.Api.Controllers
         public string GetProduct() {
             return "Success";
         }
-        [HttpPost]
+        [HttpPost("getlist")]
         public JsonResult GetList([FromBody] DtParameters dtParameters)
         {
             var searchBy = dtParameters.search?.Value;
