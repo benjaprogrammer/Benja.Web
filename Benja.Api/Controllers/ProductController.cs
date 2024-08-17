@@ -6,7 +6,7 @@ namespace Benja.Api.Controllers
     [ApiController]
     [Authorize]
     [Route("api/v1/product")]
-    public class ProductController : Controller
+    public class ProductController : BaseController
     {
         [HttpGet("getproduct")]
         public string GetProduct() {

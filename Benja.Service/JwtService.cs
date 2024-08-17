@@ -15,7 +15,7 @@ namespace Benja.Service
     {
         private readonly AuthenticationConfigurationModel _authenticationConfiguration;
         private readonly RefreshTokenRepo _refreshTokenRepo;
-        public JwtService(AuthenticationConfigurationModel authenticationConfiguration,  RefreshTokenRepo refreshTokenRepo)
+        public JwtService(AuthenticationConfigurationModel authenticationConfiguration, RefreshTokenRepo refreshTokenRepo)
         {
             _authenticationConfiguration = authenticationConfiguration;
             _refreshTokenRepo = refreshTokenRepo;
@@ -25,7 +25,8 @@ namespace Benja.Service
         {
             List<Claim> claims = new List<Claim>() {
                 new Claim(ClaimTypes.Email,userModel.Email),
-                new Claim(ClaimTypes.Name,userModel.UserName)
+                new Claim(ClaimTypes.Name,userModel.UserName),
+                new Claim("id",userModel.Id.ToString())
             };
             return GenerateTokenJwt(_authenticationConfiguration.AccessTokenSecret, _authenticationConfiguration.Issuer, _authenticationConfiguration.Audience, _authenticationConfiguration.AccessTokenExpirationMimutes, claims);
         }

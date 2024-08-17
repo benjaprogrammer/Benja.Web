@@ -9,25 +9,24 @@ namespace Benja.Repository
 {
     public class UserRepo
     {
+        private readonly List<UserModel> listUserModel = new List<UserModel>();
         public UserModel GetByUserName(string userName)
         {
-            UserModel user = new UserModel();
-            user.UserName = "jay";
-            user.Password = "jay";
-            user.FistName = "benja";
-            user.LastName = "pattanasak";
-            user.Email = "lifeisprogrammer@gmail.com";
-            return user;
+            return listUserModel.FirstOrDefault(x => x.UserName == userName);
         }
         public UserModel GetById(Guid userID)
         {
-            UserModel user = new UserModel();
-            user.UserName = "jay";
-            user.Password = "jay";
-            user.FistName = "benja";
-            user.LastName = "pattanasak";
-            user.Email = "lifeisprogrammer@gmail.com";
-            return user;
+            return listUserModel.FirstOrDefault(x => x.Id == userID);
+        }
+        public UserModel GetByEmail(string email)
+        {
+            return listUserModel.FirstOrDefault(x=>x.Email == email);
+        }
+        public UserModel Create(UserModel userModel)
+        {
+            userModel.Id=Guid.NewGuid();
+            listUserModel.Add(userModel);
+            return userModel;
         }
     }
 }

@@ -1,5 +1,6 @@
 using Benja.Model;
 using Benja.Service;
+using Benja.Library;
 using Benja.Repository;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
@@ -13,6 +14,9 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+
+builder.Services.AddSingleton<UserRepo>();
+builder.Services.AddSingleton<BcryptPasswordHasher>();
 builder.Services.AddSingleton<RefreshTokenRepo>();
 AuthenticationConfigurationModel authenticationConfiguration = new AuthenticationConfigurationModel();
 builder.Configuration.Bind("Authentication", authenticationConfiguration);
