@@ -9,12 +9,9 @@ namespace Benja.Api.Controllers
     public class AuthenController : Controller
     {
         private readonly AuthenticationConfigurationModel _authenticationConfiguration;
-
-        //private readonly JwtService _jwtService;
         private readonly RefreshTokenRepo _refreshTokenRepo;
         public AuthenController( RefreshTokenRepo refreshTokenRepo, AuthenticationConfigurationModel authenticationConfigurationModel)
         {
-            //_jwtService = jwtService;
             _refreshTokenRepo = refreshTokenRepo;
             _authenticationConfiguration= authenticationConfigurationModel;
         }
