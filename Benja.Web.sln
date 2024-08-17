@@ -3,15 +3,19 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.10.35013.160
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Benja.Web", "Benja.Web\Benja.Web.csproj", "{81092FA7-29D9-49D5-A8D3-65CB6E2DB127}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Benja.Web", "Benja.Web\Benja.Web.csproj", "{81092FA7-29D9-49D5-A8D3-65CB6E2DB127}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Benja.Api", "Benja.Api\Benja.Api.csproj", "{38B6C397-2FA9-40EA-8ACB-07597F91C44F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Benja.Api", "Benja.Api\Benja.Api.csproj", "{38B6C397-2FA9-40EA-8ACB-07597F91C44F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Benja.Model", "Benja.Model\Benja.Model.csproj", "{265A5E1F-FF01-4D5C-AA8B-47F3795B5F0A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Benja.Model", "Benja.Model\Benja.Model.csproj", "{265A5E1F-FF01-4D5C-AA8B-47F3795B5F0A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Benja.Service", "Benja.Service\Benja.Service.csproj", "{B85CBF23-50C8-4CB9-AFA6-049273CCD8E5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Benja.Service", "Benja.Service\Benja.Service.csproj", "{B85CBF23-50C8-4CB9-AFA6-049273CCD8E5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Benja.Repository", "Benja.Repository\Benja.Repository.csproj", "{D175E5D8-D89F-452B-BC9F-C237048D6398}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Benja.Repository", "Benja.Repository\Benja.Repository.csproj", "{D175E5D8-D89F-452B-BC9F-C237048D6398}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Benja.ViewModel", "Benja.ViewModel\Benja.ViewModel.csproj", "{7D0DE549-ACC2-47AD-9731-61F1B8654126}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Benja.Library", "Benja.Library\Benja.Library.csproj", "{FDA609A1-37D5-41CA-AC13-AE48F8A2240F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +43,14 @@ Global
 		{D175E5D8-D89F-452B-BC9F-C237048D6398}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D175E5D8-D89F-452B-BC9F-C237048D6398}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D175E5D8-D89F-452B-BC9F-C237048D6398}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7D0DE549-ACC2-47AD-9731-61F1B8654126}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7D0DE549-ACC2-47AD-9731-61F1B8654126}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7D0DE549-ACC2-47AD-9731-61F1B8654126}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7D0DE549-ACC2-47AD-9731-61F1B8654126}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FDA609A1-37D5-41CA-AC13-AE48F8A2240F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FDA609A1-37D5-41CA-AC13-AE48F8A2240F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FDA609A1-37D5-41CA-AC13-AE48F8A2240F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FDA609A1-37D5-41CA-AC13-AE48F8A2240F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
