@@ -1,5 +1,6 @@
 using Benja.Model;
 using Benja.Service;
+using Benja.Repository;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
@@ -12,11 +13,11 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-//jay
-builder.Services.AddSingleton<TokenService>();
-AuthenticationConfiguration authenticationConfiguration = new AuthenticationConfiguration();
+builder.Services.AddSingleton<RefreshTokenRepo>();
+AuthenticationConfigurationModel authenticationConfiguration = new AuthenticationConfigurationModel();
 builder.Configuration.Bind("Authentication", authenticationConfiguration);
 builder.Services.AddSingleton(authenticationConfiguration);
+
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(o =>
     o.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters()
     {
@@ -25,11 +26,12 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJw
         ValidAudience = authenticationConfiguration.Audience,
         ValidateIssuerSigningKey = true,
         ValidateIssuer = true,
-        ValidateAudience = true
+        ValidateAudience = true,
+        ClockSkew = TimeSpan.Zero
     }
     );
 
-//
+
 
 var app = builder.Build();
 

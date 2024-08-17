@@ -8,9 +8,15 @@ namespace Benja.Api.Controllers
     [Route("api/v1/authen")]
     public class AuthenController : Controller
     {
-        private readonly TokenService _tokenService;
-        public AuthenController(TokenService tokenService) {
-            _tokenService= tokenService;    
+        private readonly AuthenticationConfigurationModel _authenticationConfiguration;
+
+        //private readonly JwtService _jwtService;
+        private readonly RefreshTokenRepo _refreshTokenRepo;
+        public AuthenController( RefreshTokenRepo refreshTokenRepo, AuthenticationConfigurationModel authenticationConfigurationModel)
+        {
+            //_jwtService = jwtService;
+            _refreshTokenRepo = refreshTokenRepo;
+            _authenticationConfiguration= authenticationConfigurationModel;
         }
         [HttpPost("login")]
         public IActionResult Login([FromBody] LoginRequestModel loginRequestModel)
@@ -19,16 +25,42 @@ namespace Benja.Api.Controllers
             {
                 return BadRequest(ModelState);
             }
-            UserRepository userRepository = new UserRepository();
-            UserModel userModel =  userRepository.GetByUserName(loginRequestModel.Username);
+            UserRepo userRepository = new UserRepo();
+            UserModel userModel = userRepository.GetByUserName(loginRequestModel.Username);
             if (userModel == null)
             {
                 return Unauthorized();
+            };
+            JwtService _jwtService = new JwtService(_authenticationConfiguration,_refreshTokenRepo);
+            AuthenticateUserModel authenticateUserModel = _jwtService.Authenticate(userModel);
+            return Ok(authenticateUserModel);
+        }
+        [HttpPost("refresh")]
+        public async Task<IActionResult> Refresh([FromBody] RefreshRequestModel refreshRequestModel)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
             }
-            string accessToken = _tokenService.GenerateToken(userModel);
-            return Ok(new AuthenticateUserResponse() { 
-                AccessToken= accessToken
-            });
+            JwtService _jwtService = new JwtService(_authenticationConfiguration, _refreshTokenRepo);
+            bool isValidRefreshToken = _jwtService.RefreshTokenValidate(refreshRequestModel.RefreshToken);
+            if (!isValidRefreshToken)
+            {
+                return BadRequest(new ErrorResponseModel("Invalid refresh token"));
+            }
+            RefreshTokenModel refreshTokenModel =await _refreshTokenRepo.GetByToken(refreshRequestModel.RefreshToken);
+            if (refreshTokenModel == null)
+            {
+                return NotFound(new ErrorResponseModel("Invalid refresh token"));
+            }
+            await _refreshTokenRepo.Delete(refreshTokenModel.Id);
+            UserModel userModel = new UserRepo().GetById(refreshTokenModel.UserId);
+            if (userModel == null)
+            {
+                return NotFound(new ErrorResponseModel("User not found"));
+            }
+            AuthenticateUserModel authenticateUserModel = _jwtService.Authenticate(userModel);
+            return Ok(authenticateUserModel);
         }
     }
 }
