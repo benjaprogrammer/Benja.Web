@@ -44,8 +44,8 @@ namespace Benja.Api.Controllers
                 return Unauthorized();
             };
             JwtService _jwtService = new JwtService(_authenticationConfiguration, _refreshTokenRepo);
-            AuthenticateUserModel authenticateUserModel = _jwtService.Authenticate(userModel);
-            return Ok(authenticateUserModel);
+
+            return Ok(_jwtService.Authenticate(userModel));
         }
         [HttpPost("refresh")]
         public async Task<IActionResult> Refresh([FromBody] RefreshRequestModel refreshRequestModel)
@@ -71,8 +71,7 @@ namespace Benja.Api.Controllers
             {
                 return NotFound(new ErrorResponseModel("User not found"));
             }
-            AuthenticateUserModel authenticateUserModel = _jwtService.Authenticate(userModel);
-            return Ok(authenticateUserModel);
+            return Ok(_jwtService.Authenticate(userModel));
         }
         [Authorize]
         [HttpDelete("logout")]
