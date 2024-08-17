@@ -3,6 +3,7 @@ using System.Diagnostics;
 using Benja.Repository;
 using Benja.Model;
 using Benja.ViewModel;
+using Benja.Library;
 namespace Benja.Web.Controllers
 {
     public class HomeController : Controller
@@ -16,9 +17,8 @@ namespace Benja.Web.Controllers
 
         public IActionResult Index()
         {
-            SiteVM siteVM = new SiteVM();
-            siteVM.listSiteModel = new SiteRepo().GetAll().ToList();
-            return View(siteVM);
+            return View();
         }
+       
     }
 }
