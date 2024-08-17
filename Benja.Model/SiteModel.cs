@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Benja.Model
 {
-    public class TblSite
+    public class SiteModel
     {
         public Guid f_site_id { get; set; }
         public string f_site_name { get; set; }

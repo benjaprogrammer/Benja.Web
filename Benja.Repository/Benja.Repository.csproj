@@ -11,6 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Benja.Library\Benja.Library.csproj" />
     <ProjectReference Include="..\Benja.Model\Benja.Model.csproj" />
   </ItemGroup>
 

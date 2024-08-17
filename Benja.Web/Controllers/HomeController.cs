@@ -1,7 +1,8 @@
-using Benja.Web.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
-
+using Benja.Repository;
+using Benja.Model;
+using Benja.ViewModel;
 namespace Benja.Web.Controllers
 {
     public class HomeController : Controller
@@ -15,18 +16,9 @@ namespace Benja.Web.Controllers
 
         public IActionResult Index()
         {
-            return View();
-        }
-
-        public IActionResult Privacy()
-        {
-            return View();
-        }
-
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            SiteVM siteVM = new SiteVM();
+            siteVM.listSiteModel = new SiteRepo().GetAll().ToList();
+            return View(siteVM);
         }
     }
 }

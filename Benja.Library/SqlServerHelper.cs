@@ -21,7 +21,7 @@ namespace Benja.Library
         {
             SqlCon = null;
             var config = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build();
-            ConnectionString = config.GetValue<string>("ConnectionStrings:DbConnectionString");
+            ConnectionString = config.GetValue<string>("ConnectionStrings:ApartmentConnectionString");
             StrSql = string.Empty;
         }
         public SqlServerHelper(string connectionString)

@@ -11,4 +11,8 @@
     <None Include="wwwroot\lib\metronic_html_v8.2.7\demo1\src\sass\.DS_Store" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Benja.Repository\Benja.Repository.csproj" />
+  </ItemGroup>
+
 </Project>
