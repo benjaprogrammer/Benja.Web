@@ -13,6 +13,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Benja.Repository\Benja.Repository.csproj" />
+    <ProjectReference Include="..\Benja.Service\Benja.Service.csproj" />
     <ProjectReference Include="..\Benja.ViewModel\Benja.ViewModel.csproj" />
   </ItemGroup>
 
