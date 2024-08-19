@@ -11,7 +11,6 @@ namespace Benja.Api.Controllers
     [Route("api/v1/test")]
     public class TestController : BaseController
     {
-        public SqlServer _sqlServer;
         RoomModel roomModel = new RoomModel();
         public TestController(SqlServer sqlServer)
         {
@@ -26,23 +25,38 @@ namespace Benja.Api.Controllers
         [HttpGet("executequery")]
         public JsonResult ExecuteQuery()
         {
-            TestRepo testRepo = new TestRepo(_sqlServer);
-            string sql = @"select 
+            ApiResponse<List<RoomModel>> response = new ApiResponse<List<RoomModel>>();
+            try
+            {
+                TestRepo testRepo = new TestRepo(_sqlServer);
+                string sql = @"select 
                             * 
                             from 
                             Room
                             ";
-            object parameter = new
+                object parameter = new
+                {
+                    Id = 1
+                };
+
+                response.Success = true;
+                response.Data = testRepo.ExecuteQuery(sql, parameter).ToList();
+            }
+            catch (Exception ex)
             {
-                Id = 1
-            };
-            return Json(testRepo.ExecuteQuery(sql, parameter).ToList());
+                response.Success = false;
+                response.ErrorMessage = ex.Message;
+            }
+            return Json(response);
         }
         [HttpGet("executenonquery")]
         public JsonResult ExecuteNonQuery()
         {
-            TestRepo testRepo = new TestRepo(_sqlServer);
-            string sql = @"INSERT INTO Room
+            ApiResponse<int> response = new ApiResponse<int>();
+            try
+            {
+                TestRepo testRepo = new TestRepo(_sqlServer);
+                string sql = @"INSERT INTO Room
            (RoomName
            ,CreateDate
            ,CreateBy
@@ -55,38 +69,50 @@ namespace Benja.Api.Controllers
            ,@UpdateDate
            ,@UpdateBy)
                             ";
-            object parameter = new
+                object parameter = new
+                {
+                    RoomName = roomModel.RoomName,
+                    CreateDate = roomModel.CreateDate,
+                    CreateBy = roomModel.CreateBy,
+                    UpdateDate = roomModel.UpdateDate,
+                    UpdateBy = roomModel.UpdateBy
+                };
+                response.Success = true;
+                response.Data = testRepo.ExecuteNonQuery(sql, parameter);
+            }
+            catch (Exception ex)
             {
-                RoomName = roomModel.RoomName,
-                CreateDate = roomModel.CreateDate,
-                CreateBy = roomModel.CreateBy,
-                UpdateDate = roomModel.UpdateDate,
-                UpdateBy = roomModel.UpdateBy
-            };
-            return Json(testRepo.ExecuteNonQuery(sql, parameter));
+                response.Success = false;
+                response.ErrorMessage = ex.Message;
+            }
+            return Json(response);
         }
         [HttpGet("executescalar")]
         public JsonResult ExecuteScalar()
         {
+            ApiResponse<object> response = new ApiResponse<object>();
             try
             {
-
-            }
-            catch (Exception ex)
-            {
-
-            }
-            TestRepo testRepo = new TestRepo(_sqlServer);
-            string sql = @"select 
+                TestRepo testRepo = new TestRepo(_sqlServer);
+                string sql = @"select 
                             sum(Id) as [sum]
                             from 
                             Room
                             ";
-            return Json(testRepo.ExecuteScalar(sql));
+                response.Success = true;
+                response.Data = testRepo.ExecuteScalar(sql);
+            }
+            catch (Exception ex)
+            {
+                response.Success = false;
+                response.ErrorMessage = ex.Message;
+            }
+            return Json(response);
         }
         [HttpGet("executetransaction")]
         public JsonResult ExecuteTransaction()
         {
+            ApiResponse<string> response = new ApiResponse<string>();
             TestRepo testRepo = new TestRepo(_sqlServer);
             _sqlServer.OpenSqlCon();
             SqlTransaction trans = _sqlServer.GetSqlCon().BeginTransaction();
@@ -137,16 +163,22 @@ namespace Benja.Api.Controllers
                 };
                 testRepo.ExecuteTransaction(sql2, parameter2, _sqlServer.GetSqlCon(), trans);
                 trans.Commit();
+                response.Success = true;
+                response.Data = "commit";
             }
             catch (Exception ex)
             {
                 trans.Rollback();
+                response.Success = false;
+                response.ErrorMessage= ex.Message;  
             }
             finally
             {
                 _sqlServer.CloseSqlCon();
             }
-            return Json("Success");
+            return Json(response);
         }
     }
 }
+
+
