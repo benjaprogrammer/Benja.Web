@@ -12,7 +12,7 @@ namespace Benja.Repository
     {
         public IEnumerable<SiteModel> GetAll()
         {
-            SqlServerHelper sql = new SqlServerHelper();
+            SqlServer sql = new SqlServer();
             return sql.ExecuteQuery<SiteModel>("select * from tbl_site", null);
         }
     }
