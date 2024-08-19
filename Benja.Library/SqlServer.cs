@@ -82,23 +82,23 @@ namespace Benja.Library
         {
             using (var connection = new SqlConnection(ConnectionString))
             {
-                return connection.Query<T>(sql, obj).ToList();
+                return connection.Query<T>(sql, obj);
             }
         }
         public IEnumerable<T> ExecuteQuery<T>(SqlTransaction trans, SqlConnection con, string sql, object obj = null)
         {
-            return con.Query<T>(sql, obj, trans).ToList();
+            return con.Query<T>(sql, obj, trans);
         }
-        public List<dynamic> ExecuteQuery(string sql, object obj = null)
+        public IEnumerable<dynamic> ExecuteQuery(string sql, object obj = null)
         {
             using (var connection = new SqlConnection(ConnectionString))
             {
-                return connection.Query(sql, obj).ToList();
+                return connection.Query(sql, obj);
             }
         }
-        public List<dynamic> ExecuteQuery(string sql, SqlTransaction trans, SqlConnection con, object obj = null)
+        public IEnumerable<dynamic> ExecuteQuery(string sql, SqlTransaction trans, SqlConnection con, object obj = null)
         {
-            return con.Query(sql, obj, trans).ToList();
+            return con.Query(sql, obj, trans);
         }
         public int ExecuteNonQuery(string sql, object obj = null)
         {

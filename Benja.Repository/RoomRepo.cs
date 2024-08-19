@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Benja.Model;
-namespace Benja.ViewModel
+
+namespace Benja.Repository
 {
-    public class SiteVM
+    public class RoomRepo
     {
-        public List<SiteModel> listSiteModel { get; set; }
+        
     }
 }
