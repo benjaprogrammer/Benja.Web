@@ -78,7 +78,7 @@ namespace Benja.Library
         {
             return SqlCon;
         }
-        public IEnumerable<T> ExecuteQuery<T>(string sql, object obj = null)
+        public IEnumerable<T> ExecuteQuery<T>(string sql, object obj = null) 
         {
             using (var connection = new SqlConnection(ConnectionString))
             {

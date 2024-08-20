@@ -11,10 +11,6 @@ namespace Benja.Api.Controllers
     [Route("api/v1/product")]
     public class ProductController : BaseController
     {
-        [HttpGet("getproduct")]
-        public string GetProduct() {
-            return "Success";
-        }
         //[HttpPost("getlist")]
         //public JsonResult GetList([FromBody] DtParameters dtParameters)
         //{

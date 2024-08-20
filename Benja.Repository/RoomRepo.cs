@@ -1,36 +1,40 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Metadata;
 using System.Text;
 using System.Threading.Tasks;
+using Benja.Library;
 using Benja.Model;
 namespace Benja.Repository
 {
-    public class RoomRepo : IDataAccess
+    public class RoomRepo :  BaseRepo,IDataAccess
     {
-        public int Add()
+        public RoomRepo(SqlServer sqlServer) : base(sqlServer)
         {
-            throw new NotImplementedException();
-        }
+            _sqlServer = sqlServer;
 
-        public int Delete()
-        {
-            throw new NotImplementedException();
         }
-
-        public int Edit()
+        public int Add(string sql, object? parameter)
         {
-            throw new NotImplementedException();
+            return _sqlServer.ExecuteNonQuery(sql, parameter);
         }
-
-        public RoomModel GetItem<RoomModel>(int id)
+        public int Edit(string sql, object? parameter)
         {
-            throw new NotImplementedException();
+            return _sqlServer.ExecuteNonQuery(sql, parameter);
         }
-
-        public IEnumerable<RoomModel> GetList<RoomModel>(int id)
+        public int Delete(string sql, object? parameter)
         {
-            throw new NotImplementedException();
+            return _sqlServer.ExecuteNonQuery(sql, parameter);
+        }
+        public IEnumerable<RoomModel> GetItem<RoomModel>(string sql, object parameter)
+        {
+
+            return _sqlServer.ExecuteQuery<RoomModel>(sql, parameter);
+        }
+        public IEnumerable<RoomModel> GetList<RoomModel>(string sql, object parameter)
+        {
+            return _sqlServer.ExecuteQuery<RoomModel>(sql, parameter);
         }
     }
 }

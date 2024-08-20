@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Benja.Library;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Permissions;
@@ -9,10 +10,10 @@ namespace Benja.Repository
 {
     public interface IDataAccess
     {
-        public int Add();
-        public int Edit();
-        public int Delete();
-        public T GetItem<T>(int id);
-        public IEnumerable<T> GetList<T>(int id);
+        public int Add(string sql, object? parameter);
+        public int Edit(string sql, object? parameter);
+        public int Delete(string sql, object? parameter);
+        public IEnumerable<T> GetItem<T>(string sql, object parameter);
+        public IEnumerable<T> GetList<T>(string sql, object parameter);
     }
 }

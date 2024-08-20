@@ -8,20 +8,15 @@ using Newtonsoft.Json;
 using Benja.Service;
 namespace Benja.Web.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : BaseController
     {
-        private readonly ILogger<HomeController> _logger;
         //private readonly IExportService<SiteModel> _exportService;
 
-        public HomeController(ILogger<HomeController> logger)
-        {
-            _logger = logger;
-        }
+        //public HomeController(IExportService<SiteModel> logger)
+        //{
+        //    _logger = logger;
+        //}
 
-        public IActionResult Index()
-        {
-            return View();
-        }
         //[HttpPost]
         //public async Task<IActionResult> ExportTable([FromQuery] string format, [FromForm] string dtParametersJson)
         //{

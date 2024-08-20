@@ -8,12 +8,11 @@ namespace Benja.Model
 {
     public class ApiResponse<T>
     {
-        public bool Success { get; set; }
+        public bool Success { get; set; } = true;
         public T Data { get; set; }
-        public string ErrorMessage { get; set; }
+        public string ErrorMessage { get; set; }=string.Empty;
         public ApiResponse()
         {
-            Success = true;
         }
     }
 }

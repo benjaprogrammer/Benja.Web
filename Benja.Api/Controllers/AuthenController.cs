@@ -22,7 +22,6 @@ namespace Benja.Api.Controllers
         public IActionResult Login([FromBody] LoginRequestModel loginRequestModel)
         {
             ApiResponse<AuthenticateUserModel> response = new ApiResponse<AuthenticateUserModel>();
-            response.Success = true;
             try
             {
                 if (!ModelState.IsValid)
@@ -65,7 +64,6 @@ namespace Benja.Api.Controllers
         public async Task<IActionResult> Refresh([FromBody] RefreshRequestModel refreshRequestModel)
         {
             ApiResponse<AuthenticateUserModel> response = new ApiResponse<AuthenticateUserModel>();
-            response.Success = true;
             try
             {
                 if (!ModelState.IsValid)
@@ -111,7 +109,6 @@ namespace Benja.Api.Controllers
         public IActionResult Logout()
         {
             ApiResponse<string> response = new ApiResponse<string>();
-            response.Success = true;
             try
             {
                 string rawUserID = HttpContext.User.FindFirstValue("id");
@@ -135,7 +132,6 @@ namespace Benja.Api.Controllers
         public IActionResult Register([FromBody] RegisterModel registerModel)
         {
             ApiResponse<string> response = new ApiResponse<string>();
-            response.Success = true;
             try
             {
                 if (!ModelState.IsValid)
