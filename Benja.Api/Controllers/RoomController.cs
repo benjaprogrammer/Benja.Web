@@ -138,7 +138,7 @@ where Id=@Id";
             }
             return Json(response);
         }
-        [HttpGet("getlists")]
+        [HttpPost("getlists")]
         public JsonResult GetLists([FromBody] RoomListVM roomListVM) 
         {
             ApiResponse<List<RoomModel>> response = new ApiResponse<List<RoomModel>>();

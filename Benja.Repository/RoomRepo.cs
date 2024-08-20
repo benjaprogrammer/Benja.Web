@@ -36,5 +36,6 @@ namespace Benja.Repository
         {
             return _sqlServer.ExecuteQuery<RoomModel>(sql, parameter);
         }
+  
     }
 }
