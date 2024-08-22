@@ -6,5 +6,6 @@ namespace Benja.Api.Controllers
     public class BaseController : Controller
     {
         public SqlServer _sqlServer;
+        public IWebHostEnvironment _iWebHostEnvironment;
     }
 }

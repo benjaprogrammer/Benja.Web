@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,6 +18,13 @@ namespace Benja.Library
             else
             {
                 return string.Empty;
+            }
+        }
+        public void SaveImage(string physicalpath,IFormFile postFile)
+        {
+            using (var stream = new FileStream(physicalpath, FileMode.Create))
+            {
+                postFile.CopyTo(stream);
             }
         }
     }

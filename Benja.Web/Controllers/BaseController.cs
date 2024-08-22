@@ -4,9 +4,9 @@ namespace Benja.Web.Controllers
 {
     public class BaseController : Controller
     {
-        public IActionResult Index()
+        public IWebHostEnvironment _iWebHostEnvironment;
+        public BaseController()
         {
-            return View();
         }
     }
 }
