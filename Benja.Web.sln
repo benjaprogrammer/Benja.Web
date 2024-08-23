@@ -13,9 +13,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Benja.Service", "Benja.Serv
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Benja.Repository", "Benja.Repository\Benja.Repository.csproj", "{D175E5D8-D89F-452B-BC9F-C237048D6398}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Benja.ViewModel", "Benja.ViewModel\Benja.ViewModel.csproj", "{7D0DE549-ACC2-47AD-9731-61F1B8654126}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Benja.ViewModel", "Benja.ViewModel\Benja.ViewModel.csproj", "{7D0DE549-ACC2-47AD-9731-61F1B8654126}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Benja.Library", "Benja.Library\Benja.Library.csproj", "{FDA609A1-37D5-41CA-AC13-AE48F8A2240F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Benja.Library", "Benja.Library\Benja.Library.csproj", "{FDA609A1-37D5-41CA-AC13-AE48F8A2240F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

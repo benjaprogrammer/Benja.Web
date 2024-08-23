@@ -1,0 +1,103 @@
+﻿
+<div id="app">
+    <input type="text" v-model="roomVm.roomModel.roomName">
+    <input type="text" v-model="roomVm.roomModel.createDate">
+    <input type="text" v-model="roomVm.roomModel.createBy">
+    <input type="text" v-model="roomVm.roomModel.updateDate">
+    <input type="text" v-model="roomVm.roomModel.updateBy">
+    @*  <textarea v-model="text" v-on:keyup="countTextArea"></textarea>*@
+    <span>{{count}}</span>
+    <button v-on:click="AddRoom"></button>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script type="text/javascript">
+
+
+    var app = new Vue({
+        el: "#app",
+        data: {
+            text: "test",
+            count: 100,
+            roomVm: {
+                roomModel: {
+                    roomName: "",
+                    createDate: "",
+                    createBy: "",
+                    updateDate: "",
+                    updateBy: ""
+                }
+            }
+        },
+        methods: {
+            AddRoom: function () {
+                const options = {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        // 'Authorization': 'Bearer ${token}'
+                    }
+                };
+                console.log(this.roomVm.roomModel);
+                // const axios = require('axios');
+                // import axios from 'axios'
+                var room = {
+                    roomName: "1",
+                    createDate: "2",
+                    createBy: "3",
+                    updateDate: "4",
+                    updateBy: "5"
+                }
+                // axios.post('https://localhost:7098/api/v1/room/add', room)
+                //     .then(function (response) {
+                //          console.log(response);
+                //     })
+                //     .catch(function (error) {
+                //         console.log(error);
+                //     });
+
+                $.ajax({
+                    type: !("GET"),
+                    url: "https://localhost:7098/api/v1/room/add",
+                    dataType: "jsonp",
+                    data: room,
+            success: function (response) {
+                    }
+                });
+                // this.count = this.roomVm.roomModel.RoomName
+            }
+        }
+    });
+</script>
+@*  const axios = require('axios');
+ axios.post('/user', {
+    firstName: 'Fred',
+    lastName: 'Flintstone'
+  })
+  .then(function (response) {
+    console.log(response);
+  })
+  .catch(function (error) {
+    console.log(error);
+  }); *@
+
+
+
+@* // Make a request for a user with a given ID
+axios.get('/user?ID=12345')
+  .then(function (response) {
+    // handle success
+    console.log(response);
+  })
+  .catch(function (error) {
+    // handle error
+    console.log(error);
+  })
+  .finally(function () {
+    // always executed
+  }); *@
+
+
+@*    *@
+
+@* axios.post('http://path', data, options) *@

@@ -19,7 +19,7 @@ namespace Benja.Api.Controllers
         {
             _sqlServer = sqlServer;
         }
-        [HttpGet("add")]
+        [HttpPost("add")]
         public JsonResult Add([FromBody] RoomModel roomModel)
         {
             ApiResponse<int> response = new ApiResponse<int>();

@@ -31,6 +31,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJw
     );
 
 var app = builder.Build();
+app.UseCors(c => c.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
