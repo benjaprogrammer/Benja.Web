@@ -1,7 +1,19 @@
+using Benja.Library;
+using Benja.Model;
 using Microsoft.Extensions.FileProviders;
 using Newtonsoft.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddDistributedMemoryCache();
+
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromSeconds(10);
+    options.Cookie.HttpOnly = true;
+    options.Cookie.IsEssential = true;
+});
+
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddCors(c => {
@@ -30,6 +42,7 @@ app.UseAuthorization();
 //        Path.Combine(Directory.GetCurrentDirectory(),"\\wwwroot\\image")),
 //    RequestPath= "wwwroot\\image"
 //});
+app.UseSession();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Room}/{action=Test}/{id?}");

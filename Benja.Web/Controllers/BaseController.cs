@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Benja.Model;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Benja.Web.Controllers
 {
