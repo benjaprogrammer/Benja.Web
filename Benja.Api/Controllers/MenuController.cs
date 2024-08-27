@@ -11,7 +11,7 @@ using System.Data.SqlTypes;
 namespace Benja.Api.Controllers
 {
     [ApiController]
-    [Authorize]
+    //[Authorize]
     [Route("api/v1/menu")]
     public class MenuController : BaseController
     {

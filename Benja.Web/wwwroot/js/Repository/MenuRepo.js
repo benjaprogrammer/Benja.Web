@@ -2,12 +2,13 @@
 class MenuRepo extends BaseRepo {
     constructor(token) {
         super();
-        _token = token;
-        this.headers.Add("Authorization", "Bearer " + _token)
+        //super.Token = token;
+        /*this.headers.Add("Authorization", "Bearer " + this._token)*/
     }
 
     Add(menuVm) {
         try {
+            console.log(this.headers);
             const response = axios.post(this.BaseUrl + "/api/v1/menu/add", JSON.stringify(menuVm), this.headers);
         } catch (error) {
             console.error(error);

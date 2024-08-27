@@ -1,10 +1,12 @@
-﻿<div id="app">
+﻿@model Benja.ViewModel.RoomListVM;
+<div id="app">
     <input type="text" v-model="menuVm.menuModel.menuName">
   @*   <input type="text" v-model="roomVm.roomModel.createDate">
     <input type="text" v-model="roomVm.roomModel.createBy">
     <input type="text" v-model="roomVm.roomModel.updateDate">
     <input type="text" v-model="roomVm.roomModel.updateBy"> *@
-    <input type="hidden" v-model="token" value="@HttpContext.Session.GetString("token")"/>
+  
+    <input type="text" v-model="token" value="@Model.Token.ToString()" />
     <button v-on:click="AddRoom"></button>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
@@ -25,7 +27,7 @@
         },
         methods: {
             AddRoom: function () {
-                var menuRepo = new MenuRepo(token);
+                var menuRepo = new MenuRepo(this.token);
                 menuRepo.Add(this.menuVm);
             }
         }

@@ -13,15 +13,15 @@ builder.Services.AddSession(options =>
     options.Cookie.HttpOnly = true;
     options.Cookie.IsEssential = true;
 });
-
-
+builder.Services.AddHttpContextAccessor();
 builder.Services.AddControllersWithViews();
-builder.Services.AddCors(c => {
-    c.AddPolicy("AllowOrigin", x=>x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+builder.Services.AddCors(c =>
+{
+    c.AddPolicy("AllowOrigin", x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
 });
 builder.Services.AddControllersWithViews().AddNewtonsoftJson(option =>
-option.SerializerSettings.ReferenceLoopHandling= Newtonsoft.Json.ReferenceLoopHandling.Ignore)
-    .AddNewtonsoftJson(x=>x.SerializerSettings.ContractResolver=new DefaultContractResolver()
+option.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore)
+    .AddNewtonsoftJson(x => x.SerializerSettings.ContractResolver = new DefaultContractResolver()
 );
 var app = builder.Build();
 app.UseCors(c => c.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());

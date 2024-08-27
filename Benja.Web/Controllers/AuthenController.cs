@@ -15,7 +15,7 @@ namespace Benja.Web.Controllers
         }
         public IActionResult Login()
         {
-            HttpContext.Session.SetString("token", "");
+            HttpContext.Session.SetString("token", "test");
             return View();
         }
     }
