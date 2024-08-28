@@ -6,7 +6,7 @@ using Newtonsoft.Json.Serialization;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddDistributedMemoryCache();
-
+builder.Services.AddHttpClient();
 builder.Services.AddSession(options =>
 {
     options.IdleTimeout = TimeSpan.FromSeconds(10);
@@ -45,6 +45,6 @@ app.UseAuthorization();
 app.UseSession();
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Room}/{action=Test}/{id?}");
+    pattern: "{controller=temp}/{action=index}/{id?}");
 
 app.Run();

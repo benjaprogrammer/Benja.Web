@@ -10,7 +10,7 @@ namespace Benja.Repository
 {
     public class RoomRepo :  BaseRepo,IDataAccess
     {
-        public RoomRepo(SqlServer sqlServer) : base(sqlServer)
+        public RoomRepo(SqlServer sqlServer) 
         {
             _sqlServer = sqlServer;
 

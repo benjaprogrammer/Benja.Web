@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using System.Data.SqlTypes;
+using System.Net.Http;
 
 namespace Benja.Api.Controllers
 {
@@ -18,6 +19,7 @@ namespace Benja.Api.Controllers
         public MenuController(SqlServer sqlServer)
         {
             _sqlServer = sqlServer;
+            
         }
         [HttpPost("add")]
         public JsonResult Add(MenuVm menuVm)
@@ -108,7 +110,7 @@ namespace Benja.Api.Controllers
         [HttpGet("getitem")]
         public JsonResult GetItem(string menuModel)
         {
-            ApiResponse<RoomModel> response = new ApiResponse<RoomModel>();
+            ApiResponse<MenuModel> response = new ApiResponse<MenuModel>();
             try
             {
                 MenuRepo menuRepo = new MenuRepo(_sqlServer);
@@ -119,14 +121,14 @@ where MenuName like '%@MenuName%'";
                 {
                     MenuName = menuModel
                 };
-                List<RoomModel> listRoomModel = menuRepo.GetItem<RoomModel>(sql, parameter).ToList();
-                if (listRoomModel.Count > 0)
+                List<MenuModel> listMenuModel = menuRepo.GetItem<MenuModel>(sql, parameter).ToList();
+                if (listMenuModel.Count > 0)
                 {
-                    response.Data = listRoomModel[0];
+                    response.Data = listMenuModel[0];
                 }
                 else
                 {
-                    response.Data = new RoomModel();
+                    response.Data = new MenuModel();
                 }
             }
             catch (Exception ex)

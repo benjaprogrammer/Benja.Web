@@ -1,15 +1,18 @@
-﻿
-class MenuRepo extends BaseRepo {
+﻿class MenuRepo extends BaseRepo {
+    header = "";
     constructor(token) {
         super();
-        //super.Token = token;
-        /*this.headers.Add("Authorization", "Bearer " + this._token)*/
+        this.header = {
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": "Bearer " + token
+            }
+        }
     }
 
     Add(menuVm) {
         try {
-            console.log(this.headers);
-            const response = axios.post(this.BaseUrl + "/api/v1/menu/add", JSON.stringify(menuVm), this.headers);
+            const response = axios.post(this.BaseUrl + "/api/v1/menu/add", JSON.stringify(menuVm), this.header);
         } catch (error) {
             console.error(error);
         }
@@ -17,6 +20,7 @@ class MenuRepo extends BaseRepo {
     GetItem(menuVm) {
         try {
             const response = axios.get(this.BaseUrl + "/api/v1/menu/getitem" + "?menuModel=" + menuVm.menuModel.menuName);
+            return JSON.parse(response);
         } catch (error) {
             console.error(error);
         }

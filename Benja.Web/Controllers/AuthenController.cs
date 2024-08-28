@@ -1,6 +1,6 @@
 ﻿using Benja.Model;
 using Microsoft.AspNetCore.Mvc;
-
+using Benja.Service;
 namespace Benja.Web.Controllers
 {
     public class AuthenController : BaseController
@@ -18,5 +18,12 @@ namespace Benja.Web.Controllers
             HttpContext.Session.SetString("token", "test");
             return View();
         }
+        [HttpPost]
+        public JsonResult Login([FromBody] LoginRequestModel loginRequestModel)
+        {
+            AuthenService authenService =new AuthenService();
+            return Json("");//authenService.SignIn()
+        }
     }
 }
+

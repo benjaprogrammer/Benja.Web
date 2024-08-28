@@ -7,6 +7,7 @@ namespace Benja.Web.Controllers
     {
         public IWebHostEnvironment _iWebHostEnvironment;
         public IHttpContextAccessor _iHttpContextAccessor;
+        public IHttpClientFactory _iHttpClientFactory;
         public string Token;
         public BaseController()
         {

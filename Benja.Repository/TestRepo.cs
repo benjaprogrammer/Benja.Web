@@ -12,7 +12,7 @@ namespace Benja.Repository
     public class TestRepo : BaseRepo
     {
 
-        public TestRepo(SqlServer sqlServer) : base(sqlServer)
+        public TestRepo(SqlServer sqlServer) 
         {
             _sqlServer = sqlServer;
 
