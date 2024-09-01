@@ -10,10 +10,10 @@ namespace Benja.Repository
 {
     public interface IDataAccess
     {
-        public int Add(string sql, object? parameter);
-        public int Edit(string sql, object? parameter);
-        public int Delete(string sql, object? parameter);
-        public IEnumerable<T> GetItem<T>(string sql, object parameter);
-        public IEnumerable<T> GetList<T>(string sql, object parameter);
+        public Task<int> Add(string sql, object? parameter);
+        public Task<int> Edit(string sql, object? parameter);
+        public Task<int> Delete(string sql, object? parameter);
+        public Task<IEnumerable<T>> GetItem<T>(string sql, object parameter);
+        public Task<IEnumerable<T>> GetList<T>(string sql, object parameter);
     }
 }

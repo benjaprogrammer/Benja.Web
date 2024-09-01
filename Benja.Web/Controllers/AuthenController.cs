@@ -1,15 +1,17 @@
 ﻿using Benja.Model;
 using Microsoft.AspNetCore.Mvc;
 using Benja.Service;
+using Benja.Library;
 namespace Benja.Web.Controllers
 {
     public class AuthenController : BaseController
     {
-        public AuthenController()
-        {
-           
-        }
-        public IActionResult Index()
+		public AuthenController(IHttpClientFactory iHttpClientFactory, HTTP http)
+		{
+			_iHttpClientFactory = iHttpClientFactory;
+			_http = http;
+		}
+		public IActionResult Index()
         {
             return View();
         }
@@ -21,9 +23,19 @@ namespace Benja.Web.Controllers
         [HttpPost]
         public JsonResult Login([FromBody] LoginRequestModel loginRequestModel)
         {
-            AuthenService authenService =new AuthenService();
+            AuthenService authenService =new AuthenService(_iHttpClientFactory,_http);
             return Json("");//authenService.SignIn()
         }
-    }
+		public IActionResult Register()
+		{
+			return View();
+		}
+        [HttpPost]
+		public async Task<JsonResult> Register([FromBody] RegisterModel registerModel)
+		{
+            AuthenService authenService = new AuthenService(_iHttpClientFactory, _http);
+			return Json(await authenService.Register(registerModel));
+		}
+	}
 }
 

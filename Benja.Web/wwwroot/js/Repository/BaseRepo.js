@@ -1,6 +1,6 @@
 ﻿
 class BaseRepo {
-    BaseUrl = "https://localhost:7098";
+    BaseUrl = "https://localhost:7057";
     constructor() {
     }
 }

@@ -2,9 +2,10 @@ using Benja.Library;
 using Benja.Model;
 using Microsoft.Extensions.FileProviders;
 using Newtonsoft.Json.Serialization;
+using static System.Net.WebRequestMethods;
 
 var builder = WebApplication.CreateBuilder(args);
-
+builder.Services.AddSingleton<HTTP>();
 builder.Services.AddDistributedMemoryCache();
 builder.Services.AddHttpClient();
 builder.Services.AddSession(options =>
@@ -45,6 +46,6 @@ app.UseAuthorization();
 app.UseSession();
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=temp}/{action=index}/{id?}");
+    pattern: "{controller=Authen}/{action=Login}/{id?}");
 
 app.Run();

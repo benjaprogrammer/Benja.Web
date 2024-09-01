@@ -8,7 +8,7 @@ namespace Benja.Model
 {
     public class MenuModel : BaseModel
     {
-        public string MenuName { get; set; } = string.Empty;
+        public string? menuName { get; set; } = null;
     }
 }
 

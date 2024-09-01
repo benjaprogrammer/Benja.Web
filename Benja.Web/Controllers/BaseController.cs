@@ -1,4 +1,5 @@
-﻿using Benja.Model;
+﻿using Benja.Library;
+using Benja.Model;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Benja.Web.Controllers
@@ -9,6 +10,7 @@ namespace Benja.Web.Controllers
         public IHttpContextAccessor _iHttpContextAccessor;
         public IHttpClientFactory _iHttpClientFactory;
         public string Token;
+        public HTTP _http;
         public BaseController()
         {
          

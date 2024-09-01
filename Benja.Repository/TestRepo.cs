@@ -17,21 +17,21 @@ namespace Benja.Repository
             _sqlServer = sqlServer;
 
         }
-        public IEnumerable<RoomModel> ExecuteQuery(string sql, object parameter)
+        public Task<IEnumerable<RoomModel>> ExecuteQuery(string sql, object parameter)
         {
 
             return _sqlServer.ExecuteQuery<RoomModel>(sql, parameter);
         }
-        public int ExecuteNonQuery(string sql, object? parameter)
+        public Task<int> ExecuteNonQuery(string sql, object? parameter)
         {
 
             return _sqlServer.ExecuteNonQuery(sql, parameter);
         }
-        public object ExecuteScalar(string sql)
+        public Task<object> ExecuteScalar(string sql)
         {
             return _sqlServer.ExecuteScalar(sql, null);
         }
-        public int ExecuteTransaction(string sql, object? parameter, SqlConnection con, SqlTransaction trans)
+        public Task<int> ExecuteTransaction(string sql, object? parameter, SqlConnection con, SqlTransaction trans)
         {
             return _sqlServer.ExecuteNonQuery(sql, con, trans, parameter);
         }

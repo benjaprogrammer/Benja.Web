@@ -19,25 +19,24 @@ namespace Benja.Repository
         public MenuRepo(SqlServer sqlServer)
         {
             _sqlServer = sqlServer;
-    
         }
-        public int Add(string sql, object? parameter)
+        public Task<int> Add(string sql, object? parameter)
         {
             return _sqlServer.ExecuteNonQuery(sql, parameter);
         }
-        public int Edit(string sql, object? parameter)
+        public Task<int> Edit(string sql, object? parameter)
         {
             return _sqlServer.ExecuteNonQuery(sql, parameter);
         }
-        public int Delete(string sql, object? parameter)
+        public Task<int> Delete(string sql, object? parameter)
         {
             return _sqlServer.ExecuteNonQuery(sql, parameter);
         }
-        public IEnumerable<MenuModel> GetItem<MenuModel>(string sql, object parameter)
+        public Task<IEnumerable<MenuModel>> GetItem<MenuModel>(string sql, object parameter)
         {
             return _sqlServer.ExecuteQuery<MenuModel>(sql, parameter);
         }
-        public IEnumerable<RoomModel> GetList<RoomModel>(string sql, object parameter)
+        public Task<IEnumerable<RoomModel>> GetList<RoomModel>(string sql, object parameter)
         {
             return _sqlServer.ExecuteQuery<RoomModel>(sql, parameter);
         }

@@ -10,5 +10,8 @@ namespace Benja.ViewModel
     public  class MenuVm
     {
         public MenuModel menuModel { get; set; }
+        public MenuVm() {
+            menuModel=new MenuModel();
+        }
     }
 }

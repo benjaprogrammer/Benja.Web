@@ -34,8 +34,8 @@ namespace Benja.Api.Controllers
 
                 UserModel userModel = new UserModel()
                 {
-                    UserName = loginRequestModel.Username,
-                    Email = loginRequestModel.Email,
+                    UserName = loginRequestModel.username,
+                    Email = loginRequestModel.email,
                     FistName = "benja",
                     LastName = "pattanasak",
                     Password = "test",
@@ -43,7 +43,7 @@ namespace Benja.Api.Controllers
                 };
                 userRepository.Create(userModel);
 
-                userModel = userRepository.GetByUserName(loginRequestModel.Username);
+                userModel = userRepository.GetByUserName(loginRequestModel.username);
                 if (userModel == null)
                 {
                     response.Success = false;
@@ -139,17 +139,17 @@ namespace Benja.Api.Controllers
                     IEnumerable<string> errorMessage = ModelState.Values.SelectMany(x => x.Errors.Select(y => y.ErrorMessage));
                     return BadRequest(new ErrorResponseModel(errorMessage));
                 }
-                if (registerModel.Password != registerModel.ConfirmPassword)
+                if (registerModel.password != registerModel.confirmPassword)
                 {
                     return BadRequest(new ErrorResponseModel("Password does not match confirm password"));
                 }
                 UserRepo userRepo = new UserRepo();
-                UserModel userModel = userRepo.GetByEmail(registerModel.Email);
+                UserModel userModel = userRepo.GetByEmail(registerModel.email);
                 if (userModel != null)
                 {
                     return Conflict(new ErrorResponseModel("Email already exists"));
                 }
-                userModel = userRepo.GetByUserName(registerModel.UserName);
+                userModel = userRepo.GetByUserName(registerModel.userName);
                 if (userModel != null)
                 {
                     return Conflict(new ErrorResponseModel("Username already exists"));
@@ -157,9 +157,9 @@ namespace Benja.Api.Controllers
 
                 userModel = new UserModel()
                 {
-                    Email = registerModel.Email,
-                    UserName = registerModel.UserName,
-                    PasswordHash = new BcryptPasswordHasher().HashPassword(registerModel.Password)
+                    Email = registerModel.email,
+                    UserName = registerModel.userName,
+                    PasswordHash = new BcryptPasswordHasher().HashPassword(registerModel.password)
                 };
                 userRepo.Create(userModel);
                 response.Data = "Register Success";

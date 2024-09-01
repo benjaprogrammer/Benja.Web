@@ -19,10 +19,10 @@ namespace Benja.Api.Controllers
         public MenuController(SqlServer sqlServer)
         {
             _sqlServer = sqlServer;
-            
+
         }
         [HttpPost("add")]
-        public JsonResult Add(MenuVm menuVm)
+        public async Task<JsonResult> Add([FromBody] MenuModel menuModel)
         {
             ApiResponse<int> response = new ApiResponse<int>();
             try
@@ -35,12 +35,12 @@ namespace Benja.Api.Controllers
           (@MenuName
           )
                             ";
-                object parameter = new
+                var parameter = new
                 {
-                    MenuName = menuVm.menuModel.MenuName,
+                    MenuName = menuModel.menuName,
                 };
 
-                response.Data = menuRepo.Add(sql, parameter);
+                response.Data = await menuRepo.Add(sql, parameter);
             }
             catch (Exception ex)
             {
@@ -64,7 +64,7 @@ namespace Benja.Api.Controllers
         //           ,UpdateBy=@UpdateBy
         //           where Id=@Id
         //                            ";
-        //                object parameter = new
+        //                var parameter = new
         //                {
         //                    RoomName = roomModel.RoomName,
         //                    CreateDate = roomModel.CreateDate,
@@ -93,7 +93,7 @@ namespace Benja.Api.Controllers
         //                string sql = @"Delete from Room 
         //           where Id=@Id
         //                            ";
-        //                object parameter = new
+        //                var parameter = new
         //                {
         //                    Id = roomModel.Id
         //                };
@@ -108,7 +108,7 @@ namespace Benja.Api.Controllers
         //            return Json(response);
         //        }
         [HttpGet("getitem")]
-        public JsonResult GetItem(string menuModel)
+        public async Task<JsonResult> GetItem(string menuModel)
         {
             ApiResponse<MenuModel> response = new ApiResponse<MenuModel>();
             try
@@ -117,11 +117,8 @@ namespace Benja.Api.Controllers
                 string sql = @"SELECT *
 FROM Menu 
 where MenuName like '%@MenuName%'";
-                object parameter = new
-                {
-                    MenuName = menuModel
-                };
-                List<MenuModel> listMenuModel = menuRepo.GetItem<MenuModel>(sql, parameter).ToList();
+                var parameter = new { MenuName = menuModel };
+                List<MenuModel> listMenuModel = (await menuRepo.GetItem<MenuModel>(sql, parameter)).ToList();
                 if (listMenuModel.Count > 0)
                 {
                     response.Data = listMenuModel[0];

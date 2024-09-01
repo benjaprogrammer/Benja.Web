@@ -23,4 +23,15 @@
             console.error(error);
         }
     }
+
+    Registers(registerModel) {
+        try {
+            const response = axios.post(this.BaseUrl + "/authen/register", JSON.stringify(registerModel), this.header).then((response) => {
+                return response.data;
+            });
+
+        } catch (error) {
+            console.error(error);
+        }
+    }
 }

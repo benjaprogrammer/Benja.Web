@@ -16,6 +16,7 @@ namespace Benja.Service
         public HttpClient _httpClient;
         public string _baseUrl = "https://localhost:7098";
         public HttpModel _httpModel;
+        public HTTP _http;
         public BaseService()
         {
           

@@ -78,49 +78,49 @@ namespace Benja.Library
         {
             return SqlCon;
         }
-        public IEnumerable<T> ExecuteQuery<T>(string sql, object obj = null) 
+        public async Task<IEnumerable<T>> ExecuteQuery<T>(string sql, object obj = null) 
         {
             using (var connection = new SqlConnection(ConnectionString))
             {
-                return connection.Query<T>(sql, obj);
+                return await connection.QueryAsync<T>(sql, obj);
             }
         }
-        public IEnumerable<T> ExecuteQuery<T>(SqlTransaction trans, SqlConnection con, string sql, object obj = null)
+        public async Task<IEnumerable<T>> ExecuteQuery<T>(SqlTransaction trans, SqlConnection con, string sql, object obj = null)
         {
-            return con.Query<T>(sql, obj, trans);
+            return await con.QueryAsync<T>(sql, obj, trans);
         }
-        public IEnumerable<dynamic> ExecuteQuery(string sql, object obj = null)
+        public async Task<IEnumerable<dynamic>> ExecuteQuery(string sql, object obj = null)
         {
             using (var connection = new SqlConnection(ConnectionString))
             {
-                return connection.Query(sql, obj);
+                return await connection.QueryAsync(sql, obj);
             }
         }
-        public IEnumerable<dynamic> ExecuteQuery(string sql, SqlTransaction trans, SqlConnection con, object obj = null)
+        public async Task<IEnumerable<dynamic>> ExecuteQuery(string sql, SqlTransaction trans, SqlConnection con, object obj = null)
         {
-            return con.Query(sql, obj, trans);
+            return await con.QueryAsync(sql, obj, trans);
         }
-        public int ExecuteNonQuery(string sql, object obj = null)
+        public async Task<int> ExecuteNonQuery(string sql, object obj = null)
         {
             using (var connection = new SqlConnection(ConnectionString))
             {
-                return connection.Execute(sql, obj);
+                return await connection.ExecuteAsync(sql, obj);
             }
         }
-        public int ExecuteNonQuery(string sql, SqlConnection con, SqlTransaction trans, object obj = null)
+        public async Task<int> ExecuteNonQuery(string sql, SqlConnection con, SqlTransaction trans, object obj = null)
         {
-            return con.Execute(sql, obj, trans);
+            return await con.ExecuteAsync(sql, obj, trans);
         }
-        public object ExecuteScalar(string sql, object obj = null)
+        public async Task<object?> ExecuteScalar(string sql, object obj = null)
         {
             using (var connection = new SqlConnection(ConnectionString))
             {
-                return connection.ExecuteScalar(sql, obj);
+                return await connection.ExecuteScalarAsync(sql, obj);
             }
         }
-        public object ExecuteScalar(string sql, SqlConnection con, SqlTransaction trans, object obj = null)
+        public async Task<object?> ExecuteScalar(string sql, SqlConnection con, SqlTransaction trans, object obj = null)
         {
-            return con.ExecuteScalar(sql, obj, trans);
+            return await con.ExecuteScalarAsync(sql, obj, trans);
         }
         #endregion
     }
