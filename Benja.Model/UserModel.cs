@@ -6,14 +6,13 @@ using System.Threading.Tasks;
 
 namespace Benja.Model
 {
-    public  class UserModel
+    public  class UserModel:BaseModel
     {
-        public Guid Id { get; set; } 
-        public string UserName { get; set; }
-        public string Password { get; set; }        
-        public string FistName { get; set; }
-        public string LastName { get; set; }    
-        public string Email { get; set; }
-        public string PasswordHash { get; set; }
+        public string userName { get; set; }
+        public string password { get; set; }        
+        public string fistName { get; set; }
+        public string lastName { get; set; }    
+        public string email { get; set; }
+        public string passwordHash { get; set; }
     }
 }

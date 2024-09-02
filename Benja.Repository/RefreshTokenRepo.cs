@@ -25,7 +25,7 @@ namespace Benja.Repository
             listRefreshTokenModel.RemoveAll(x=> x.Id == id);
             return Task.CompletedTask;
         }
-        public Task DeleteAll(Guid userID)
+        public Task DeleteAll(int userID)
         {
             listRefreshTokenModel.RemoveAll(x => x.UserId == userID);
             return Task.CompletedTask;

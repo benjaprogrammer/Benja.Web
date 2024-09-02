@@ -9,11 +9,11 @@ namespace Benja.Model
 {
     public class BaseModel
     {
-        public int? id { get; set; } = null;
-        public DateTime? createDate { get; set; } = null;
-        public string? createBy { get; set; } = null;
-        public DateTime? updateDate { get; set; } = null;
-        public string? updateBy { get; set; } = null;
-
+        public int id { get; set; } 
+        public DateTime createDate { get; set; } 
+        public string createBy { get; set; } 
+        public DateTime updateDate { get; set; } 
+        public string updateBy { get; set; } 
+        public Guid migrationGuID { get; set; }
     }
 }

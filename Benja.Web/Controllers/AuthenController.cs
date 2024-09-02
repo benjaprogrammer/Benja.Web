@@ -33,9 +33,14 @@ namespace Benja.Web.Controllers
         [HttpPost]
 		public async Task<JsonResult> Register([FromBody] RegisterModel registerModel)
 		{
+            registerModel.id = 0;
+            registerModel.createBy = "";
+            registerModel.createDate = DateTime.Now;
+            registerModel.updateDate = DateTime.Now;
+            registerModel.updateBy = "";
             AuthenService authenService = new AuthenService(_iHttpClientFactory, _http);
-			return Json(await authenService.Register(registerModel));
-		}
+            return Json(await authenService.Register(registerModel));
+        }
 	}
 }
 

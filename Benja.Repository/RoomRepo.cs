@@ -8,7 +8,7 @@ using Benja.Library;
 using Benja.Model;
 namespace Benja.Repository
 {
-    public class RoomRepo :  BaseRepo,IDataAccess
+    public class RoomRepo :  BaseRepo
     {
         public RoomRepo(SqlServer sqlServer) 
         {

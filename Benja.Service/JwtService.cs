@@ -24,9 +24,9 @@ namespace Benja.Service
         public string GenerateToken(UserModel userModel)
         {
             List<Claim> claims = new List<Claim>() {
-                new Claim(ClaimTypes.Email,userModel.Email),
-                new Claim(ClaimTypes.Name,userModel.UserName),
-                new Claim("id",userModel.Id.ToString())
+                new Claim(ClaimTypes.Email,userModel.email),
+                new Claim(ClaimTypes.Name,userModel.userName),
+                new Claim("id",userModel.id.ToString())
             };
             return GenerateTokenJwt(_authenticationConfiguration.AccessTokenSecret, _authenticationConfiguration.Issuer, _authenticationConfiguration.Audience, _authenticationConfiguration.AccessTokenExpirationMimutes, claims);
         }
@@ -80,7 +80,7 @@ namespace Benja.Service
             RefreshTokenModel refreshTokenModel = new RefreshTokenModel()
             {
                 Token = refreshToken,
-                UserId = userModel.Id
+                UserId = userModel.id
             };
             _refreshTokenRepo.Create(refreshTokenModel);
             return new AuthenticateUserModel()

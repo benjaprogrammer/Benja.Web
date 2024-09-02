@@ -5,6 +5,10 @@ using Benja.Service;
 using Benja.Library;
 using Microsoft.AspNetCore.Authorization;
 using System.Security.Claims;
+using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.AspNetCore.Identity;
+using static QRCoder.PayloadGenerator;
+using System.Data.SqlClient;
 namespace Benja.Api.Controllers
 {
     [ApiController]
@@ -13,8 +17,9 @@ namespace Benja.Api.Controllers
     {
         private readonly AuthenticationConfigurationModel _authenticationConfiguration;
         private readonly RefreshTokenRepo _refreshTokenRepo;
-        public AuthenController(RefreshTokenRepo refreshTokenRepo, AuthenticationConfigurationModel authenticationConfigurationModel)
+        public AuthenController(RefreshTokenRepo refreshTokenRepo, AuthenticationConfigurationModel authenticationConfigurationModel, SqlServer sqlServer)
         {
+            _sqlServer = sqlServer;
             _refreshTokenRepo = refreshTokenRepo;
             _authenticationConfiguration = authenticationConfigurationModel;
         }
@@ -30,20 +35,20 @@ namespace Benja.Api.Controllers
                     response.ErrorMessage = "BadRequest";
                     return BadRequest(ModelState);
                 }
-                UserRepo userRepository = new UserRepo();
+                UserRepo userRepo = new UserRepo(_sqlServer);
 
-                UserModel userModel = new UserModel()
-                {
-                    UserName = loginRequestModel.username,
-                    Email = loginRequestModel.email,
-                    FistName = "benja",
-                    LastName = "pattanasak",
-                    Password = "test",
-                    PasswordHash = new BcryptPasswordHasher().HashPassword("test")
-                };
-                userRepository.Create(userModel);
+                UserModel userModel = new UserModel();
+                //{
+                //    UserName = loginRequestModel.username,
+                //    Email = loginRequestModel.email,
+                //    FistName = "benja",
+                //    LastName = "pattanasak",
+                //    Password = "test",
+                //    PasswordHash = new BcryptPasswordHasher().HashPassword("test")
+                //};
+                //userRepository.Create(userModel);
 
-                userModel = userRepository.GetByUserName(loginRequestModel.username);
+                //userModel = userRepository.GetByUserName(loginRequestModel.username);
                 if (userModel == null)
                 {
                     response.Success = false;
@@ -88,14 +93,14 @@ namespace Benja.Api.Controllers
                     return NotFound(new ErrorResponseModel("Invalid refresh token"));
                 }
                 await _refreshTokenRepo.Delete(refreshTokenModel.Id);
-                UserModel userModel = new UserRepo().GetById(refreshTokenModel.UserId);
-                if (userModel == null)
-                {
-                    response.Success = false;
-                    response.ErrorMessage = "User not found";
-                    return NotFound(new ErrorResponseModel("User not found"));
-                }
-                response.Data = _jwtService.Authenticate(userModel);
+                //UserModel userModel = new UserRepo(_sqlServer).GetById(refreshTokenModel.UserId);
+                //if (userModel == null)
+                //{
+                //    response.Success = false;
+                //    response.ErrorMessage = "User not found";
+                //    return NotFound(new ErrorResponseModel("User not found"));
+                //}
+                //response.Data = _jwtService.Authenticate(userModel);
             }
             catch (Exception ex)
             {
@@ -112,7 +117,7 @@ namespace Benja.Api.Controllers
             try
             {
                 string rawUserID = HttpContext.User.FindFirstValue("id");
-                if (!Guid.TryParse(rawUserID, out Guid userID))
+                if (!int.TryParse(rawUserID, out int userID))
                 {
                     response.Success = false;
                     response.ErrorMessage = "Unauthorized";
@@ -129,9 +134,9 @@ namespace Benja.Api.Controllers
             return Ok(response);
         }
         [HttpPost("register")]
-        public IActionResult Register([FromBody] RegisterModel registerModel)
+        public async Task<IActionResult> Register([FromBody] RegisterModel registerModel)
         {
-            ApiResponse<string> response = new ApiResponse<string>();
+            ApiResponse<int> response = new ApiResponse<int>();
             try
             {
                 if (!ModelState.IsValid)
@@ -143,28 +148,18 @@ namespace Benja.Api.Controllers
                 {
                     return BadRequest(new ErrorResponseModel("Password does not match confirm password"));
                 }
-                UserRepo userRepo = new UserRepo();
-                UserModel userModel = userRepo.GetByEmail(registerModel.email);
-                if (userModel != null)
-                {
-                    return Conflict(new ErrorResponseModel("Email already exists"));
-                }
-                userModel = userRepo.GetByUserName(registerModel.userName);
-                if (userModel != null)
-                {
-                    return Conflict(new ErrorResponseModel("Username already exists"));
-                }
-
-                userModel = new UserModel()
-                {
-                    Email = registerModel.email,
-                    UserName = registerModel.userName,
-                    PasswordHash = new BcryptPasswordHasher().HashPassword(registerModel.password)
-                };
-                userRepo.Create(userModel);
-                response.Data = "Register Success";
+                UserRepo userRepo = new UserRepo(_sqlServer);
+                //userRepo.GetByEmail<UserModel>()
+                //if (userModel != null)
+                //{
+                //    response.ErrorMessage = "Email already exists";
+                //}
+                //else
+                //{
+                response.Data = await userRepo.Add(registerModel);
+                //}
             }
-            catch (Exception ex)
+            catch (SqlException ex)
             {
                 response.ErrorMessage = ex.Message;
                 response.Success = false;

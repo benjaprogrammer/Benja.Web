@@ -14,7 +14,7 @@ using Newtonsoft.Json.Linq;
 
 namespace Benja.Repository
 {
-    public class MenuRepo : BaseRepo, IDataAccess
+    public class MenuRepo : BaseRepo
     {
         public MenuRepo(SqlServer sqlServer)
         {

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Benja.Model
 {
-    public  class RegisterModel
+    public  class RegisterModel:BaseModel
     {
         public string email { get; set; }
         public string userName { get; set; }
