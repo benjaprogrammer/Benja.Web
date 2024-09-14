@@ -26,7 +26,6 @@ namespace Benja.Library
         }
         public StringContent SerializeObject(object obj)
         {
-            //return new StringContent("{\r\n  \"email\": \"lifeisprogrammer@gmail.com\",\r\n  \"userName\": \"username\",\r\n  \"password\": \"password\",\r\n  \"confirmPassword\": \"password\",\r\n  \"createDate\": \"2022-01-01\",\r\n \"createBy\": \"\",\r\n\"updateDate\": \"2022-01-01\",\r\n \"updateBy\": \"\",\r\n \"migrationGuID\": \"00000000-0000-0000-0000-000000000000\"\r\n}\r\n", null, "application/json");
             return new StringContent(JsonConvert.SerializeObject(obj), Encoding.UTF8, "application/json");//Encoding.UTF8
         }
     }

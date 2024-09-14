@@ -25,7 +25,6 @@ namespace Benja.Service
         {
             List<Claim> claims = new List<Claim>() {
                 new Claim(ClaimTypes.Email,userModel.email),
-                new Claim(ClaimTypes.Name,userModel.userName),
                 new Claim("id",userModel.id.ToString())
             };
             return GenerateTokenJwt(_authenticationConfiguration.AccessTokenSecret, _authenticationConfiguration.Issuer, _authenticationConfiguration.Audience, _authenticationConfiguration.AccessTokenExpirationMimutes, claims);

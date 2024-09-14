@@ -19,10 +19,8 @@ namespace Benja.Repository
         {
             string sql = @"INSERT INTO [User](
            userName
-           ,userPassword
-           ,userConfirmPassword
-           ,fistName
-           ,lastName
+           ,password
+           ,confirmPassword
            ,email
            ,passwordHash
            ,createDate
@@ -32,10 +30,8 @@ namespace Benja.Repository
            ,migrationGuID)
      VALUES
            ( @userName
-           ,@userPassword
-           ,@userConfirmPassword
-           ,@fistName
-           ,@lastName
+           ,@password
+           ,@confirmPassword
            ,@email
            ,@passwordHash
            ,@createDateString
@@ -48,16 +44,14 @@ namespace Benja.Repository
             var parameter = new
             {
                 userName = registerModel.userName,
-                userPassword = registerModel.password,
-                userConfirmPassword = registerModel.confirmPassword,
-                fistName = "fistName",
-                lastName = "lastName",
+                password = registerModel.password,
+                confirmPassword = registerModel.confirmPassword,
                 email = registerModel.email,
                 passwordHash = new BcryptPasswordHasher().HashPassword(registerModel.password),
                 createDateString = DateTime.Now.ToString("yyyy-MM-dd",new CultureInfo("en-US")),
-                createBy = "createBy",
+                createBy = registerModel.createBy,
                 updateDateString = DateTime.Now.ToString("yyyy-MM-dd", new CultureInfo("en-US")),
-                updateBy = "updateBy",
+                updateBy = registerModel.updateBy,
                 migrationGuIDString = Guid.NewGuid().ToString()
             };
             return _sqlServer.ExecuteNonQuery(sql, parameter);

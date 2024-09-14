@@ -13,8 +13,6 @@
     SignIn(loginRequestModel) {
         try
         {
-            console.log(JSON.stringify(loginRequestModel))
-            debugger; 
             const response = axios.post(this.BaseUrl + "/api/v1/authen/login", JSON.stringify(loginRequestModel), this.header).then((response) => {
                 return response.data.data.accessToken;
             });
@@ -26,6 +24,7 @@
 
     Registers(registerModel) {
         try {
+            console.log(JSON.stringify(registerModel));
             const response = axios.post(this.BaseUrl + "/authen/register", JSON.stringify(registerModel), this.header).then((response) => {
                 return response.data;
             });
