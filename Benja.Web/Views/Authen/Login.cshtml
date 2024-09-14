@@ -271,7 +271,7 @@ License: For each use you must have a valid license purchased only from above li
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script src="~/js/repository/baserepo.js"></script>
-<script src="~/js/repository/authenrepo.js"></script>
+<script src="~/js/repository/loginrepo.js"></script>
 <script type="text/javascript">
 
     var app = new Vue({
@@ -279,7 +279,6 @@ License: For each use you must have a valid license purchased only from above li
         data: {
             LoginRequestModel:
             {
-                Username: "",
                 Password: "",
                 Email: "",
                 ConfirmEmail: ""
@@ -287,9 +286,8 @@ License: For each use you must have a valid license purchased only from above li
         },
         methods: {
             SignIn: function () {
-                var authenRepo = new AuthenRepo(this.token);
-                var token=authenRepo.SignIn(this.LoginRequestModel);
-                console.log(token);
+                var loginRepo = new LoginRepo(this.token);
+                var token = loginRepo.Login(this.LoginRequestModel);
             }
         }
     });

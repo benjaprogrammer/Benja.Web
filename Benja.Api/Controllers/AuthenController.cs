@@ -36,27 +36,15 @@ namespace Benja.Api.Controllers
                     return BadRequest(ModelState);
                 }
                 UserRepo userRepo = new UserRepo(_sqlServer);
-
-                UserModel userModel = new UserModel();
-                //{
-                //    UserName = loginRequestModel.username,
-                //    Email = loginRequestModel.email,
-                //    FistName = "benja",
-                //    LastName = "pattanasak",
-                //    Password = "test",
-                //    PasswordHash = new BcryptPasswordHasher().HashPassword("test")
-                //};
-                //userRepository.Create(userModel);
-
-                //userModel = userRepository.GetByUserName(loginRequestModel.username);
-                if (userModel == null)
+                List<UserModel> listUserModel = userRepo.GetByEmail<UserModel>(loginRequestModel.email).Result.ToList();
+                if (listUserModel.Count == 0)
                 {
                     response.Success = false;
                     response.ErrorMessage = "Unauthorized";
                     return Unauthorized();
                 };
                 JwtService _jwtService = new JwtService(_authenticationConfiguration, _refreshTokenRepo);
-                response.Data = _jwtService.Authenticate(userModel);
+                response.Data = _jwtService.Authenticate(listUserModel[0]);
             }
             catch (Exception ex)
             {
@@ -149,15 +137,15 @@ namespace Benja.Api.Controllers
                     return BadRequest(new ErrorResponseModel("Password does not match confirm password"));
                 }
                 UserRepo userRepo = new UserRepo(_sqlServer);
-                //userRepo.GetByEmail<UserModel>()
-                //if (userModel != null)
-                //{
-                //    response.ErrorMessage = "Email already exists";
-                //}
-                //else
-                //{
-                response.Data = await userRepo.Add(registerModel);
-                //}
+                List<UserModel> listUserModel = userRepo.GetByEmail<UserModel>(registerModel.email).Result.ToList();
+                if (listUserModel.Count == 1)
+                {
+                    response.ErrorMessage = "Email already exists";
+                }
+                else
+                {
+                    response.Data = await userRepo.Add(registerModel);
+                }
             }
             catch (SqlException ex)
             {

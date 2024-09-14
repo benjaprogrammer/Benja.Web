@@ -18,8 +18,7 @@ namespace Benja.Repository
         public Task<int> Add(dynamic dynamic)
         {
             string sql = @"INSERT INTO [User](
-           userName
-           ,password
+           password
            ,confirmPassword
            ,email
            ,passwordHash
@@ -29,8 +28,7 @@ namespace Benja.Repository
            ,updateBy
            ,migrationGuID)
      VALUES
-           ( @userName
-           ,@password
+           (@password
            ,@confirmPassword
            ,@email
            ,@passwordHash
@@ -43,7 +41,6 @@ namespace Benja.Repository
             RegisterModel registerModel = (RegisterModel)dynamic;
             var parameter = new
             {
-                userName = registerModel.userName,
                 password = registerModel.password,
                 confirmPassword = registerModel.confirmPassword,
                 email = registerModel.email,
@@ -54,7 +51,7 @@ namespace Benja.Repository
                 updateBy = registerModel.updateBy,
                 migrationGuIDString = Guid.NewGuid().ToString()
             };
-            return _sqlServer.ExecuteNonQuery(sql, parameter);
+             return _sqlServer.ExecuteNonQuery(sql, parameter);
         }
         public Task<int> Edit(string sql, object? parameter)
         {
@@ -72,12 +69,15 @@ namespace Benja.Repository
         {
             return _sqlServer.ExecuteQuery<UserModel>(sql, parameter);
         }
-        public Task<IEnumerable<UserModel>> GetByEmail<UserModel>(object parameter)
+        public Task<IEnumerable<UserModel>> GetByEmail<UserModel>(string  email)
         {
-            string sql = @"";
+            string sql = @"select * from [User] where email=@email";
+            var parameter = new
+            {
+                email = email,
+            };
             return _sqlServer.ExecuteQuery<UserModel>(sql, parameter);
         }
-
        
     }
 }

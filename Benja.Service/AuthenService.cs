@@ -51,5 +51,21 @@ namespace Benja.Service
                 return new ApiResponse<string>();
             }
         }
+        public async Task<ApiResponse<AuthenticateUserModel>> Login(LoginRequestModel loginRequestModel)
+        {
+            _httpModel.httpRequestMessage.Content = _http.SerializeObject(loginRequestModel);
+            _httpModel.httpRequestMessage.Method = HttpMethod.Post;
+            _httpModel.httpRequestMessage.RequestUri = new Uri(_baseUrl + "/api/v1/authen/login");
+            var httpResponseMessage = await _httpModel.httpClient.SendAsync(_httpModel.httpRequestMessage);
+            if (httpResponseMessage.IsSuccessStatusCode)
+            {
+                var jsonString = await httpResponseMessage.Content.ReadAsStringAsync();
+                return JsonConvert.DeserializeObject<ApiResponse<AuthenticateUserModel>>(jsonString);
+            }
+            else
+            {
+                return new ApiResponse<AuthenticateUserModel>();
+            }
+        }
     }
 }
